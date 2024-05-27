@@ -21,7 +21,7 @@ class UsuariosView(APIView):
         else:
             return Response({'error':'no hay usuarios registrados en la base de datos'}, status=status.HTTP_404_NOT_FOUND)
         
-class UsuarioMatricula():
+class UsuarioMatricula(APIView):
     def get(self, request, matricula ,format=None):
         usuarios = UserAccount.objects.filter(matricula=matricula)
 

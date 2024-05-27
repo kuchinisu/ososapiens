@@ -8,8 +8,9 @@ class DisciplinaSerializer(serializers.ModelSerializer):
             'nombre'
         ]
 
-class DisciplinasEspecificas:
-    disciplina = serializers.ModelField(source='get_disciplina')
+class DisciplinasEspecificasSerializer:
+    disciplina = serializers.CharField(source='get_disciplina')
+    
     class Meta:
         model = DisciplinasEspecificas
         fields=[
@@ -17,9 +18,11 @@ class DisciplinasEspecificas:
             'disciplina',
         ]
 
+
+
 class ProyectoSerializer(serializers.ModelSerializer):
-    disciplina = serializers.ModelField(source='get_disciplina')
-    equipo = serializers.ModelField(source='get_equipo')
+    disciplina = serializers.CharField(source='get_disciplina')
+    equipo = serializers.CharField(source='get_equipo')
 
     class Meta:
         model = Proyecto
@@ -50,8 +53,8 @@ class AvanceSerializer(serializers.ModelSerializer):
 
         ]
 class ArchivoSerializer(serializers.ModelSerializer):
-    archivo = serializers.ModelField(source='get_archivo')
-    avance = serializers.ModelField(source='get_avance')
+    archivo = serializers.CharField(source='get_archivo')
+    avance = serializers.CharField(source='get_avance')
     class Meta:
         model = Archivo
         fields = [

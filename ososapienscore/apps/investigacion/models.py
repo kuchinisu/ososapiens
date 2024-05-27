@@ -37,6 +37,7 @@ class DisciplinasEspecificas(models.Model):
     def get_disciplina(self):
         if self.disciplina:
             return self.disciplina.nombre
+        return ''
 
 class Proyecto(models.Model):
     nombre = models.CharField(max_length=250)
@@ -47,7 +48,7 @@ class Proyecto(models.Model):
     fecha_de_finalizacion_fija = models.BooleanField(default=False)
     fecha_de_finalizacion = models.DateField(default=timezone.now)
     equipo = models.ForeignKey(Equipo, on_delete=models.CASCADE, related_name='proyecto_del_equipo')
-    publico = models.BooleanField(default=True)
+    publico = models.BooleanField(default=True) 
     habilitar_api = models.BooleanField(default=True)
     diciplinas_especificas = models.ManyToManyField(DisciplinasEspecificas, blank=True)
 
@@ -66,6 +67,7 @@ class Proyecto(models.Model):
     def get_disciplina(self):
         if self.disciplina:
             return self.disciplina.nombre
+        return ''
     def get_equipo(self):
         if self.equipo:
             return self.equipo.nombre
