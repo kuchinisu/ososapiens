@@ -1,4 +1,7 @@
 env/
 media/
 .env
+
+info.txt
+
 __pycache__

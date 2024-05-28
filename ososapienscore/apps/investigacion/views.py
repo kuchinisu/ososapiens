@@ -7,7 +7,8 @@ from apps.utils.pagination import LargeSetPagination
 from apps.equipos.models import Equipo
 from django.utils import timezone
 
-from .serializers import (DisciplinaSerializer, ProyectoSerializer, AvanceSerializer, ArchivoSerializer)
+from .serializers import (DisciplinaSerializer, ProyectoSerializer, 
+                          AvanceSerializer, ArchivoSerializer)
 from apps.user.models import UserAccount
 
 from .models import (Disciplina, DisciplinasEspecificas, Proyecto, Avance, Archivo)

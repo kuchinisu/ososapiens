@@ -13,9 +13,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '52.14.196.134',
+
+                 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
@@ -82,9 +85,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('NAME'),
-        'USER': 'postgres',
-        'PASSWORD': config('PASSWORD'),
-        'HOST': 'localhost', 
+        'USER': config('USER_NAME'),
+        'PASSWORD': config('PASSWORD_MASTER'),
+        'HOST': config('HOST'), 
         'PORT': '5432',  
     }
 }
