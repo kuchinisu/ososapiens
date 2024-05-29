@@ -2,6 +2,8 @@ from pathlib import Path
 import os
 from decouple import config
 from datetime import timedelta
+from django.core.mail import send_mail
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -13,15 +15,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = [
-    '52.14.196.134',
-
-                 ]
+if DEBUG:
+    ALLOWED_HOSTS = [
+        '127.0.0.1',
+        'localhost',
+        ]
+else:
+    ALLOWED_HOSTS = [
+        '52.14.196.134'
+        ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "http://deepcorvus.com",
 ]
 
 # Application definition
@@ -85,10 +92,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('NAME'),
-        'USER': config('USER_NAME'),
-        'PASSWORD': config('PASSWORD_MASTER'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
         'HOST': config('HOST'), 
-        'PORT': '5432',  
+        'PORT': config('PORT'),  
     }
 }
 
@@ -211,5 +218,22 @@ DJOSER = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'user.UserAccount'
 
+ 
 
-EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+#AWS_SES_REGION_NAME = 'us-east-2'
+
+#WS_REGION_ENDPOINT = 'email.us-east2.amazonaws.com'
+
+if DEBUG:
+    EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = config('EMAIL_HOST')
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+    EMAIL_USE_TLS = True
+    EMAIL_USE_SSL = False
+    DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+
+
